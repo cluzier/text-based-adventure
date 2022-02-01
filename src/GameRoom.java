@@ -5,10 +5,12 @@ import java.util.Iterator;
 class Room
 {
     private String description;
+    //private Item itemInRoom;
     private HashMap<String, Room> exits;
 
     public Room(String description) {
         this.description = description;
+        //this.itemInRoom = itemInRoom;
         exits = new HashMap<String, Room>();
     }
 
@@ -43,5 +45,16 @@ class Room
     public Room nextRoom(String direction)
     {
         return (Room)exits.get(direction);
+    }
+
+    public void displayItemsInRoom() {
+        for (Item item: Items.gameItems) {
+            if (item.getLocation() == this) {
+                System.out.println("Take what? In this room, there is ...");
+                System.out.println(item.getItemName() + "\n");
+                return;
+            }
+            System.out.println("Nothing to take.\n");
+        }
     }
 }

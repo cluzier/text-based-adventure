@@ -3,7 +3,7 @@ class UserCommands
     // commands the user has available throughout the game
 
     private static final String validCmds[] = {
-            "go", "quit", "help", "health", "inventory"
+            "go", "take", "use", "quit", "help", "health", "inventory"
     };
 
     public UserCommands()

@@ -2,15 +2,20 @@ public class Game {
     private Parser parser;
     private Room currentRoom;
 
+    // Placed these outside of createRooms() method, so I could give items a location (bottom of this file).
+    // Is there a better way? - Joshua
+    private Room start, nt, et, st, wt, ut, dt;
+
     public Game() {
         createRooms();
+        createItems();
         parser = new Parser();
     }
 
     private void createRooms() {
-        Room start, nt, et, st, wt, ut, dt;
+        //Room start, nt, et, st, wt, ut, dt;
 
-        start = new Room("There are four doors around you. You can also go and down.");
+        start = new Room("There are four doors around you. You can also go up and down.");
         nt = new Room("You went north from the starting area.");
         et = new Room("You went east from the starting area.");
         st = new Room("You went south from the starting area.");
@@ -31,7 +36,6 @@ public class Game {
 
     public void play() {
         printWelcome();
-
         boolean finished = false;
         while (! finished)
         {
@@ -51,7 +55,7 @@ public class Game {
     private boolean processCommand(Command command)
     {
         //if the command is invalid return:
-        if(command.isUnknown()) {
+        if (command.isUnknown()) {
             System.out.println("Unknown command, try again.");
             return false;
         }
@@ -61,6 +65,10 @@ public class Game {
             printHelp();
         else if (commandWord.equals("go"))
             goRoom(command);
+        else if (commandWord.equals("inventory"))
+            Inventory.displayInventory();
+        else if (commandWord.equals("take"))
+            takeItem(command);
 //        else if (commandWord.equals("health"))
 //            getHealth();
 //        else if (commandWord.equals("damage"))
@@ -68,7 +76,7 @@ public class Game {
 //        else if (commandWord.equals("suicide"))
 //            killPlayer();
         else if (commandWord.equals("quit")) {
-            if(command.hasSecondWord())
+            if (command.hasSecondWord())
                 return true;
             else
                 return true;
@@ -84,9 +92,9 @@ public class Game {
 
     private void goRoom(Command command) {
         //if user enters "go" as firstWord without second word, print secondWord options
-        if(!command.hasSecondWord())
+        if (!command.hasSecondWord())
         {
-            System.out.println("Go where?" + " " + currentRoom.exitString());
+            System.out.println("Go where? " + currentRoom.exitString());
             return;
         }
 
@@ -100,6 +108,38 @@ public class Game {
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.longDescription());
+
+            // Check if any item locations are in the current room.
+            for (Item item: Items.gameItems) {
+                if (item.getLocation() == currentRoom) {
+                    System.out.println("There is a " + item.getItemName() + " here.\n");
+                    return;
+                }
+            }
         }
+    }
+
+    private void takeItem(Command command) {
+        if (!command.hasSecondWord())
+        {
+            currentRoom.displayItemsInRoom();
+            return;
+        }
+
+        String itemName = command.getSecondWord();
+        for (Item item: Items.gameItems) {
+            if (itemName.equals(item.getItemName())) {
+                Inventory.addToInventory(item);
+                return;
+            }
+
+            // Item not found.
+            System.out.println("That's not here!");
+        }
+    }
+
+    private void createItems() {
+        Items.shovel.setLocation(nt);
+        Items.candle.setLocation(null);
     }
 }
