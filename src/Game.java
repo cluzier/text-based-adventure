@@ -69,12 +69,12 @@ public class Game {
             Inventory.displayInventory();
         else if (commandWord.equals("take"))
             takeItem(command);
-//        else if (commandWord.equals("health"))
-//            getHealth();
-//        else if (commandWord.equals("damage"))
-//            getDamagedHealth();
-//        else if (commandWord.equals("suicide"))
-//            killPlayer();
+        else if (commandWord.equals("health"))
+            getHealth();
+        else if (commandWord.equals("damage"))
+            getDamagedHealth();
+        else if (commandWord.equals("suicide"))
+            killPlayer();
         else if (commandWord.equals("quit")) {
             if (command.hasSecondWord())
                 return true;
@@ -88,6 +88,19 @@ public class Game {
         System.out.println("Your command words are:");
         parser.showCommands();
         System.out.println(currentRoom.longDescription());
+    }
+
+    private void getHealth()
+    {
+        System.out.println(PlayerHealth.hp);
+    }
+    private void getDamagedHealth()
+    {
+        PlayerHealth.playerDamaged();
+    }
+    private void killPlayer()
+    {
+        PlayerHealth.killPlayer();
     }
 
     private void goRoom(Command command) {
