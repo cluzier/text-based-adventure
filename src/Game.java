@@ -33,7 +33,6 @@ public class Game {
         currentRoom = start;
     }
 
-
     public void play() {
         printWelcome();
         boolean finished = false;
@@ -71,8 +70,8 @@ public class Game {
             takeItem(command);
         else if (commandWord.equals("health"))
             getHealth();
-        else if (commandWord.equals("damage"))
-            getDamagedHealth();
+        // else if (commandWord.equals("damage"))
+        //     getDamagedHealth();
         else if (commandWord.equals("suicide"))
             killPlayer();
         else if (commandWord.equals("quit")) {
@@ -111,6 +110,10 @@ public class Game {
             return;
         }
 
+        if (currentRoom == dt) {
+            userDmg();
+        }
+
         String direction = command.getSecondWord();
 
         Room nextRoom = currentRoom.nextRoom(direction);
@@ -129,6 +132,15 @@ public class Game {
                     return;
                 }
             }
+        }
+    }
+
+    private void userDmg() {
+        if(!Inventory.playerHasItem(Items.candle)) {
+            getDamagedHealth();
+            System.out.println("You have been damaged by a zombie!");
+        } else {
+            System.out.println("You have a candle, you can't be damaged!");
         }
     }
 
