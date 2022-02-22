@@ -15,13 +15,13 @@ public class Game {
     private void createRooms() {
         //Room start, nt, et, st, wt, ut, dt;
 
-        start = new Room("There are four doors around you. You can also go up and down.");
-        nt = new Room("You went north from the starting area.");
-        et = new Room("You went east from the starting area.");
-        st = new Room("You went south from the starting area.");
-        wt = new Room("You went west from the starting area.");
-        ut = new Room("You went up from the starting area.");
-        dt = new Room("You went down from the starting area. This room is infested with zombies!");
+        start = new Room("You find yourself in the lobby locked in a mansion, you need to find the key to escape. Your only way is north into the mansion.");
+        nt = new Room("You went north from the lobby into the library.");
+        et = new Room("You went east from the lobby to the kitchen.");
+        st = new Room("You went south from the lobby to the coat closet.");
+        wt = new Room("You went west from the lobby to the dining room.");
+        ut = new Room("You went up from the lobby to the master bedroom.");
+        dt = new Room("You went down from the lobby to the basement. This room is infested with zombies!");
 
         start.setExits(nt, et, st, wt, ut, dt);
         nt.setExits(null, null, start, null, null, null);
@@ -152,7 +152,8 @@ public class Game {
     }
 
     private void createItems() {
-        Items.shovel.setLocation(nt);
-        Items.candle.setLocation(null);
+        Items.shovel.setLocation(st);
+        Items.candle.setLocation(nt);
+        Items.key.setLocation(dt);
     }
 }
