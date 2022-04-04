@@ -1,4 +1,3 @@
-package escape_puzzle;
 import java.util.Scanner;
 
 public class escapepuzzle {
