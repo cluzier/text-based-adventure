@@ -22,11 +22,11 @@ class Inventory {
         if (currentInventory.size() == 0)
             System.out.println("Hm... you don't have anything.\n");
         else {
-            for (Item item : currentInventory) {
                 System.out.println("Your inventory consists of ...");
-                System.out.println(item.getItemName());
+                System.out.println(currentInventory.toString());
+//                System.out.println(item.getItemName());
                 System.out.println();
-            }
+
         }
     }
 

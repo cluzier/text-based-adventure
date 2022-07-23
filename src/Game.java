@@ -155,6 +155,8 @@ public class Game {
         for (Item item: Items.gameItems) {
             if (itemName.equals(item.getItemName())) {
                 Inventory.addToInventory(item);
+                //remove item from room once item is picked up
+
                 return;
             }
 
